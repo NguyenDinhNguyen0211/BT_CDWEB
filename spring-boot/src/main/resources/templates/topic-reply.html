@@ -9,6 +9,9 @@
 </head>
 <body>
 <div class="container mt-4">
+    <div class="d-flex justify-content-end mt-2 mb-2 ">
+        <div class="bg-info" th:replace="~{/fragment::navbar}"></div>
+    </div>
     <div th:object="${topic}">
         <form th:action="@{/reply/{id}(id=${topic.id})}" method="post">
             <div class="mb-3">

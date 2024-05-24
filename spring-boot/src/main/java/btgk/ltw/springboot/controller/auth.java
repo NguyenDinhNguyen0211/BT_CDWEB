@@ -37,7 +37,7 @@ public class auth {
         if (session != null) {
             session.invalidate(); // Xóa session hiện tại
         }
-        return "redirect:/login"; // Chuyển hướng đến trang đăng nhập hoặc trang chính
+        return "redirect:/login"; // Chuyển hướng đến trang đăng nhập
     }
 
 }

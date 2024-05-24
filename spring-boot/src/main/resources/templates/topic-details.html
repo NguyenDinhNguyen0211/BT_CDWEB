@@ -26,6 +26,9 @@
 </head>
 <body>
 <div class="container">
+    <div class="d-flex justify-content-end mt-2 mb-2 ">
+        <div class="bg-info" th:replace="~{/fragment::navbar}"></div>
+    </div>
     <div th:object="${topic}">
         <h3 th:text="'Chủ đề: '+ ${topic.getTitle()}"></h3>
         <div th:if="${topic.getNewMessage() != null}">
