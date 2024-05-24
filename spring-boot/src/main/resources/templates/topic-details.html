@@ -4,10 +4,28 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
 
+    <style>
+        .timeSend {
+            margin: 0px 0px;
+            padding: 10px 0px;
+            background-color: #04AA6D;
+        }
+        .customFlex1{
+            flex: 1;
+        }
+        .customFlex2{
+            flex: 3;
+        }
+    </style>
 </head>
 <body>
-<div>
+<div class="container">
     <div th:object="${topic}">
         <h3 th:text="'Chủ đề: '+ ${topic.getTitle()}"></h3>
         <div th:if="${topic.getNewMessage() != null}">
@@ -19,17 +37,18 @@
         </div>
     </div>
     <div>
-        <div>
-            <p th:text="${#dates.format(topic.createdTime, 'MM/dd/yyyy hh:mm a')}"></p>
-            <div>
-                <div>
-                    <p th:text="${topic.getCreator().getUsername()}"></p>
-                    <span th:text="'Tham gia'+ ${#dates.format(topic.getCreator().getJoinDate(), 'MM/dd/yyyy hh:mm a')}"></span>
+        <div class="border border-dark">
+            <p class="timeSend" th:text="${#dates.format(topic.createdTime, 'MM/dd/yyyy hh:mm a')}"></p>
+            <div class="d-flex ">
+                <div class="d-flex flex-column justify-content-center text-center customFlex1">
+                    <p class="mb-0 p-2" th:text="${topic.getCreator().getUsername()}"></p>
+                    <span class="p-2"
+                          th:text="'Tham gia'+ ${#dates.format(topic.getCreator().getJoinDate(), 'MM/dd/yyyy hh:mm a')}"></span>
                 </div>
-                <div>
-                    <div>
-                        <span th:text="${topic.getTitle()}"></span>
-                        <a th:href="@{/topic-reply/{id}(id=${topic.id})}">Trả lời</a>
+                <div class="customFlex2">
+                    <div class="d-flex justify-content-between">
+                        <span class="" th:text="${topic.getTitle()}"></span>
+                        <a style="margin-right: 10px" th:href="@{/topic-reply/{id}(id=${topic.id})}">Trả lời</a>
                     </div>
                     <div>
                         <span th:text="${topic.getContent()}"></span>
@@ -37,17 +56,18 @@
                 </div>
             </div>
         </div>
-        <div th:each="message : ${topic.getMessages()}">
-            <p th:text="${#dates.format(message.getCreatedTime(), 'MM/dd/yyyy hh:mm a')}"></p>
-            <div>
-                <div>
-                    <p th:text="${message.getCreator().getUsername()}"></p>
-                    <span th:text="'Tham gia '+ ${#dates.format(message.getCreator().getJoinDate(), 'MM/dd/yyyy hh:mm a')}"></span>
+        <div class="border border-dark mt-2" th:each="message : ${topic.getMessages()}">
+            <p class="timeSend" th:text="${#dates.format(message.getCreatedTime(), 'MM/dd/yyyy hh:mm a')}"></p>
+            <div class="d-flex ">
+                <div class="d-flex flex-column justify-content-center text-center customFlex1">
+                    <p class="mb-0 p-2" th:text="${message.getCreator().getUsername()}"></p>
+                    <span class=" p-2"
+                          th:text="'Tham gia '+ ${#dates.format(message.getCreator().getJoinDate(), 'MM/dd/yyyy hh:mm a')}"></span>
                 </div>
-                <div>
-                    <div>
+                <div class="customFlex2">
+                    <div class="d-flex justify-content-between">
                         <span th:text="${message.getTitle()}"></span>
-                        <a th:href="@{/topic-reply/{id}(id=${topic.id})}">Trả lời</a>
+                        <a  style="margin-right: 10px" th:href="@{/topic-reply/{id}(id=${topic.id})}">Trả lời</a>
                     </div>
                     <div>
                         <span th:text="${message.getContent()}"></span>
@@ -56,7 +76,7 @@
             </div>
         </div>
     </div>
-    <div>
+    <div class="d-flex justify-content-end p-2">
         <a th:href="@{/topics}">Danh sách chủ đề</a>
     </div>
 </div>
