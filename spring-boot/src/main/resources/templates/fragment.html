@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/templates/css/styles.css">
+</head>
+<body>
+<nav th:fragment="navbar">
+    <div class="navbar-header">
+        <div th:if="${session.USER != null}">
+            <span class="navbar-user"> Chào <span th:text="${session.USER.getUsername()}"></span> | <a th:href="@{logout}">Thoát</a></span>
+        </div>
+        <div th:unless="${session.USER != null}">
+            <a th:href="@{login}">Đăng nhập</a>
+        </div>
+    </div>
+</nav>
+
+</body>
+
+</html>

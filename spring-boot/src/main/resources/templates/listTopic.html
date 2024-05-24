@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+<div th:replace="~{/fragment::navbar}"></div>
+
+<h1>Diễn đàn: chuyện học phí và các chính sách hỗ trợ học tập</h1>
+<div th:if="${session.USER != null}">
+    <button onclick="window.location.href='/topic-create'">Gởi bài mới</button>
+</div>
+<div class="row" id="list-topic">
+    <table>
+        <thead>
+        <tr>
+            <th>Chủ đề</th>
+            <th>Hồi âm</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="topic : ${topics}">
+            <td>
+                <div>
+                    <a th:href="@{/topic-details/{id}(id=${topic.id})}" th:text="${topic.title}"></a>
+                    <div th:if="${topic.getNewMessage() != null}">
+                        <span>Bài mới nhất by </span>
+                        <a th:href="@{/user-details/{id}(id=${topic.getNewMessage().getCreator().getUsername()})}"
+                           th:text="${topic.getNewMessage().getCreator().getUsername()}"></a>,
+                        <span th:text="${#dates.format(topic.getNewMessage().getCreatedTime(), 'MM/dd/yyyy hh:mm a')}"></span>
+                    </div>
+                    <div th:unless="${topic.getNewMessage() != null}">
+                        <span>Chưa có bài mới nhất</span>
+                    </div>
+                </div>
+            </td>
+            <td th:text="${topic.getMessages().size()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

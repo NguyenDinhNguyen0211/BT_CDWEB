@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+<div>
+    <div th:object="${topic}">
+        <h3 th:text="'Chủ đề: '+ ${topic.getTitle()}"></h3>
+        <div th:if="${topic.getNewMessage() != null}">
+            <span th:text="'Bài mới nhất gửi'+ ${#dates.format(topic.getNewMessage().getCreatedTime(), 'MM/dd/yyyy hh:mm a')} +', do '
+            + ${topic.getNewMessage().getCreator().getUsername()} +' gửi, '+ ${topic.getMessages().size()} + ' hồi âm'"></span>
+        </div>
+        <div th:unless="${topic.getNewMessage() != null}">
+            <span>Chưa có bài mới nhất</span>
+        </div>
+    </div>
+    <div>
+        <div>
+            <p th:text="${#dates.format(topic.createdTime, 'MM/dd/yyyy hh:mm a')}"></p>
+            <div>
+                <div>
+                    <p th:text="${topic.getCreator().getUsername()}"></p>
+                    <span th:text="'Tham gia'+ ${#dates.format(topic.getCreator().getJoinDate(), 'MM/dd/yyyy hh:mm a')}"></span>
+                </div>
+                <div>
+                    <div>
+                        <span th:text="${topic.getTitle()}"></span>
+                        <a th:href="@{/topic-reply/{id}(id=${topic.id})}">Trả lời</a>
+                    </div>
+                    <div>
+                        <span th:text="${topic.getContent()}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:each="message : ${topic.getMessages()}">
+            <p th:text="${#dates.format(message.getCreatedTime(), 'MM/dd/yyyy hh:mm a')}"></p>
+            <div>
+                <div>
+                    <p th:text="${message.getCreator().getUsername()}"></p>
+                    <span th:text="'Tham gia '+ ${#dates.format(message.getCreator().getJoinDate(), 'MM/dd/yyyy hh:mm a')}"></span>
+                </div>
+                <div>
+                    <div>
+                        <span th:text="${message.getTitle()}"></span>
+                        <a th:href="@{/topic-reply/{id}(id=${topic.id})}">Trả lời</a>
+                    </div>
+                    <div>
+                        <span th:text="${message.getContent()}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a th:href="@{/topics}">Danh sách chủ đề</a>
+    </div>
+</div>
+</body>
+</html>

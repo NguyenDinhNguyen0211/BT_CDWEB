@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+<div>
+    <form th:action="@{/create}" method="post">
+        <div>
+            <h4>Tiêu đề</h4>
+            <input name="title" type="text">
+        </div>
+        <div>
+            <h4>Nội dung</h4>
+            <textarea  name="content" id="" cols="30" rows="10"></textarea>
+        </div>
+        <div>
+            <button type="submit">Gởi</button>
+            <a th:href="@{/topics}" class="button cancel-btn">Hủy bỏ</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
